@@ -1,51 +1,80 @@
-# 💭 Reflection: Game Glitch Investigator
-
-Answer each question in 3 to 5 sentences. Be specific and honest about what actually happened while you worked. This is about your process, not trying to sound perfect.
-
 ## 1. What was broken when you started?
 
-- What did the game look like the first time you ran it?
-- List at least two concrete bugs you noticed at the start  
-  (for example: "the hints were backwards").
+When I first ran the game, it looked functional but several parts of the logic were broken. The biggest issue was that the high and low hints were reversed, which made it difficult to play correctly. I also found that clicking the New Game button did not fully reset the game state. Finally, changing the difficulty changed the displayed range but did not generate a new secret number.
 
-**Bug Reproduction Log**
+### Bug Reproduction Log
 
-Document at least 3 bugs you found. Add rows as needed.
-
-| Input | Expected Behavior | Actual Behavior | Console Output / Error |
-|-------|-------------------|-----------------|------------------------|
-| | | | |
-| | | | |
-| | | | |
+| Input Used                     | Expected Behavior                  | Actual Behavior                       | Console Output / Error |
+| ------------------------------ | ---------------------------------- | ------------------------------------- | ---------------------- |
+| Guess of 4 when secret was 60  | Game should say guess is too low   | Game gave the wrong hint direction    | none                   |
+| Guess of 99 when secret was 51 | Game should say guess is too high  | Game gave the wrong hint direction    | none                   |
+| Click New Game after winning   | Game should fully reset            | Game remained stuck in win/loss state | none                   |
+| Change difficulty to Easy      | New secret should be in Easy range | Old secret number remained active     | none                   |
 
 ---
 
 ## 2. How did you use AI as a teammate?
 
-- Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
-- Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
-- Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+I used Claude and GitHub Copilot while working on this project. Claude helped me understand the project requirements and identify possible causes of bugs. Copilot helped explain sections of the code and suggested fixes for the session state issues.
+
+One correct AI suggestion was to reset the secret number whenever the difficulty changes. I verified this by testing the game after switching between difficulty levels.
+
+One misleading AI suggestion was to focus only on changing the hint text rather than fixing the comparison logic itself. After testing, I realized that changing the text alone would not fix the root cause of the bug.
 
 ---
 
 ## 3. Debugging and testing your fixes
 
-- How did you decide whether a bug was really fixed?
-- Describe at least one test you ran (manual or using pytest)  
-  and what it showed you about your code.
-- Did AI help you design or understand any tests? How?
+I considered a bug fixed only after I could reproduce it before the change and verify it worked afterward. I manually tested the hint logic by making guesses above and below the secret number. I also used pytest to verify that the game logic returned the expected outcomes for winning, high, and low guesses. AI helped suggest some test cases, but I still reviewed the results myself.
 
 ---
 
 ## 4. What did you learn about Streamlit and state?
 
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+I learned that Streamlit reruns the script whenever the user interacts with the page. Because of this, important values need to be stored in session state so they are not lost between reruns. Session state acts like memory for the application. Without it, the game would not be able to keep track of things like the secret number, score, or attempts.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+One habit I want to continue using is documenting bugs before trying to fix them. Having a clear list of bugs made it easier to verify my changes later. Next time I work with AI, I will ask more targeted questions instead of accepting larger suggestions immediately. This project showed me that AI can be a useful tool, but it still requires testing and human verification before code should be trusted.
+## 1. What was broken when you started?
+
+When I first ran the game, it looked functional but several parts of the logic were broken. The biggest issue was that the high and low hints were reversed, which made it difficult to play correctly. I also found that clicking the New Game button did not fully reset the game state. Finally, changing the difficulty changed the displayed range but did not generate a new secret number.
+
+### Bug Reproduction Log
+
+| Input Used                     | Expected Behavior                  | Actual Behavior                       | Console Output / Error |
+| ------------------------------ | ---------------------------------- | ------------------------------------- | ---------------------- |
+| Guess of 4 when secret was 60  | Game should say guess is too low   | Game gave the wrong hint direction    | none                   |
+| Guess of 99 when secret was 51 | Game should say guess is too high  | Game gave the wrong hint direction    | none                   |
+| Click New Game after winning   | Game should fully reset            | Game remained stuck in win/loss state | none                   |
+| Change difficulty to Easy      | New secret should be in Easy range | Old secret number remained active     | none                   |
+
+---
+
+## 2. How did you use AI as a teammate?
+
+I used Claude and GitHub Copilot while working on this project. Claude helped me understand the project requirements and identify possible causes of bugs. Copilot helped explain sections of the code and suggested fixes for the session state issues.
+
+One correct AI suggestion was to reset the secret number whenever the difficulty changes. I verified this by testing the game after switching between difficulty levels.
+
+One misleading AI suggestion was to focus only on changing the hint text rather than fixing the comparison logic itself. After testing, I realized that changing the text alone would not fix the root cause of the bug.
+
+---
+
+## 3. Debugging and testing your fixes
+
+I considered a bug fixed only after I could reproduce it before the change and verify it worked afterward. I manually tested the hint logic by making guesses above and below the secret number. I also used pytest to verify that the game logic returned the expected outcomes for winning, high, and low guesses. AI helped suggest some test cases, but I still reviewed the results myself.
+
+---
+
+## 4. What did you learn about Streamlit and state?
+
+I learned that Streamlit reruns the script whenever the user interacts with the page. Because of this, important values need to be stored in session state so they are not lost between reruns. Session state acts like memory for the application. Without it, the game would not be able to keep track of things like the secret number, score, or attempts.
+
+---
+
+## 5. Looking ahead: your developer habits
+
+One habit I want to continue using is documenting bugs before trying to fix them. Having a clear list of bugs made it easier to verify my changes later. Next time I work with AI, I will ask more targeted questions instead of accepting larger suggestions immediately. This project showed me that AI can be a useful tool, but it still requires testing and human verification before code should be trusted.
