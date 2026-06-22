@@ -1,26 +1,42 @@
 def get_range_for_difficulty(difficulty: str):
-    """Return (low, high) inclusive range for a given difficulty."""
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+    """Return the inclusive number range for the selected difficulty."""
+    if difficulty == "Easy":
+        return 1, 20
+    if difficulty == "Normal":
+        return 1, 100
+    if difficulty == "Hard":
+        return 1, 50
+    return 1, 100
 
 
 def parse_guess(raw: str):
-    """
-    Parse user input into an int guess.
+    """Parse user input into an integer guess."""
+    if raw is None or raw.strip() == "":
+        return False, None, "Enter a guess."
 
-    Returns: (ok: bool, guess_int: int | None, error_message: str | None)
-    """
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+    try:
+        value = int(raw)
+    except ValueError:
+        return False, None, "That is not a number."
+
+    return True, value, None
 
 
-def check_guess(guess, secret):
-    """
-    Compare guess to secret and return (outcome, message).
-
-    outcome examples: "Win", "Too High", "Too Low"
-    """
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+def check_guess(guess: int, secret: int):
+    """Compare a guess to the secret number."""
+    # FIX: After reviewing AI suggestions and manual testing,
+    # corrected the high/low comparison logic so hints match the guess.
+    if guess == secret:
+        return "Win", "🎉 Correct!"
+    if guess > secret:
+        return "Too High", "📉 Go LOWER!"
+    return "Too Low", "📈 Go HIGHER!"
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
-    """Update score based on outcome and attempt number."""
-    raise NotImplementedError("Refactor this function from app.py into logic_utils.py")
+    """Update the score based on the guess result."""
+    if outcome == "Win":
+        points = max(10, 100 - 10 * attempt_number)
+        return current_score + points
+
+    return current_score
