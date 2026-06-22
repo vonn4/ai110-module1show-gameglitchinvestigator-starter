@@ -42,8 +42,8 @@ def test_easy_difficulty_range():
 
 
 def test_normal_difficulty_range():
-    assert get_range_for_difficulty("Normal") == (1, 100)
+    assert get_range_for_difficulty("Normal") == (1, 50)
 
 
 def test_hard_difficulty_range():
-    assert get_range_for_difficulty("Hard") == (1, 50)
+    assert get_range_for_difficulty("Hard") == (1, 100)
